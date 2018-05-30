@@ -1,6 +1,7 @@
 // Remember current unit settings and then set units to
 // the value expected by this script
 var cnames = new Array('枝江田'); 
+var noAction = new Array('沙市巴黎', '巴黎发件', '胡巴','例外'); 
 var docRef = activeDocument;
 var absFile = docRef.fullName.toString();
 var p = docRef.path.toString();
@@ -9,6 +10,10 @@ p = p.replace(/^\/(\w)/, "$1:");
 p = p.replace(/\//g, "\\\\");
 //Adjusts the levels of the selected channels parmater
 function init() {
+    if (!contains(noAction, absFile)) 
+    {
+	hs_blue_11();
+    } 
     var height = docRef.height
     var width = docRef.width
     docRef.changeMode(ChangeMode.RGB);
@@ -50,6 +55,43 @@ else {
     init()
     colordeep()
 }
+// 去蓝
+function hs_blue_11()
+{
+    var idHStr = charIDToTypeID( "HStr" );
+    var desc134 = new ActionDescriptor();
+    var idpresetKind = stringIDToTypeID( "presetKind" );
+    var idpresetKindType = stringIDToTypeID( "presetKindType" );
+    var idpresetKindCustom = stringIDToTypeID( "presetKindCustom" );
+    desc134.putEnumerated( idpresetKind, idpresetKindType, idpresetKindCustom );
+    var idClrz = charIDToTypeID( "Clrz" );
+    desc134.putBoolean( idClrz, false );
+    var idAdjs = charIDToTypeID( "Adjs" );
+        var list4 = new ActionList();
+            var desc135 = new ActionDescriptor();
+            var idLclR = charIDToTypeID( "LclR" );
+            desc135.putInteger( idLclR, 5 );
+            var idBgnR = charIDToTypeID( "BgnR" );
+            desc135.putInteger( idBgnR, 195 );
+            var idBgnS = charIDToTypeID( "BgnS" );
+            desc135.putInteger( idBgnS, 225 );
+            var idEndS = charIDToTypeID( "EndS" );
+            desc135.putInteger( idEndS, 255 );
+            var idEndR = charIDToTypeID( "EndR" );
+            desc135.putInteger( idEndR, 285 );
+            var idH = charIDToTypeID( "H   " );
+            desc135.putInteger( idH, 0 );
+            var idStrt = charIDToTypeID( "Strt" );
+            desc135.putInteger( idStrt, -11 );
+            var idLght = charIDToTypeID( "Lght" );
+            desc135.putInteger( idLght, 0 );
+        var idHsttwo = charIDToTypeID( "Hst2" );
+        list4.putObject( idHsttwo, desc135 );
+    desc134.putList( idAdjs, list4 );
+    executeAction( idHStr, desc134, DialogModes.NO );
+   
+
+}
 function colordeep()
 {
     var color_deep = new Array('琉璃册','琉璃相册','冰雕册','冰雕相册','五彩米娜','糖果册','糖果相册','琉璃面','巴洛克册','封面深点');
@@ -77,8 +119,8 @@ function colordeep()
 //    }
 
 }
-// 调整色阶
-function levels(v)
+// 选取图层
+function layRef()
 {
     try
     {
@@ -88,6 +130,12 @@ function levels(v)
     {
         var layerRef = docRef.artLayers.getByName("背景")
     } 
+    return layerRef;
+}
+// 调整色阶
+function levels(v)
+{
+    var layerRef = layRef();
     inputRangeStart = 0 
     inputRangeEnd = 255
     inputRangeGamma = v
