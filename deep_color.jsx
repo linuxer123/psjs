@@ -14,6 +14,15 @@ function init() {
     {
 	hs_blue_11();
     } 
+    else
+    {
+	if (docRef.resolution === 254)
+	{	
+	    docRef.close();
+	    docRef = null;    
+	    return;
+	}
+    }
     var height = docRef.height
     var width = docRef.width
     docRef.changeMode(ChangeMode.RGB);
