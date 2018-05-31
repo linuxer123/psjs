@@ -23,11 +23,17 @@ function layRef()
 function duplicateLayer()
 {
     var docRef = app.activeDocument;
-    var relativeObject = layerRef;
-    var insertionLocation = ElementPlacement.PLACEBEFORE;
-    layerRef.duplicate(relativeObject, insertionLocation); 
-    var bgCopy = docRef.artLayers.getByName("Background copy");
-    return bgCopy;
+    try
+    {
+        docRef.selection.copy();
+       	docRef.paste();
+    }
+    catch(e)
+    {
+        docRef.activeLayer.copy();
+       	docRef.paste();
+    }
+    return docRef.activeLayer;
 }
 // »ìºÏÄ£Ê½
 function blendMode(layer, mode)
