@@ -10,19 +10,6 @@ p = p.replace(/^\/(\w)/, "$1:");
 p = p.replace(/\//g, "\\\\");
 //Adjusts the levels of the selected channels parmater
 function init() {
-    if (!contains(noAction, absFile)) 
-    {
-	hs_blue_11();
-    } 
-    else
-    {
-	if (docRef.resolution === 254)
-	{	
-	    docRef.close();
-	    docRef = null;    
-	    return;
-	}
-    }
     var height = docRef.height
     var width = docRef.width
     docRef.changeMode(ChangeMode.RGB);
@@ -60,9 +47,21 @@ if (absFile.indexOf(encodeURIComponent(cnames[0])) != -1)
     // don¡¯t modify the original
     docRef.close(SaveOptions.DONOTSAVECHANGES)
 }
+else if (contains(noAction, absFile)) 
+{
+	if (docRef.resolution !== 254)
+	{	
+	    init();
+            docRef.save();
+	}
+	docRef.close();
+}
 else {
+    hs_blue_11();
     init()
     colordeep()
+    docRef.save();
+    docRef.close();
 }
 // È¥À¶
 function hs_blue_11()
@@ -152,6 +151,4 @@ function levels(v)
     outputRangeEnd = 255
     layerRef.adjustLevels(inputRangeStart, inputRangeEnd, inputRangeGamma, outputRangeStart, outputRangeEnd)
 }
-docRef.save();
-docRef.close();
 docRef = null
