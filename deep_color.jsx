@@ -3,6 +3,8 @@
 var cnames = new Array('枝江田'); 
 var noAction = new Array('沙市巴黎', '巴黎发件', '胡巴','例外'); 
 var docRef = activeDocument;
+var height = docRef.height
+var width = docRef.width
 var absFile = docRef.fullName.toString();
 var p = docRef.path.toString();
 var n = docRef.name.toString();
@@ -10,10 +12,8 @@ p = p.replace(/^\/(\w)/, "$1:");
 p = p.replace(/\//g, "\\\\");
 //Adjusts the levels of the selected channels parmater
 function init() {
-    var height = docRef.height
-    var width = docRef.width
-    docRef.changeMode(ChangeMode.RGB);
     var resolution = 254
+    docRef.changeMode(ChangeMode.RGB);
     docRef.resizeImage(width, height, resolution) 
 }
 function contains(a, obj) {
@@ -24,12 +24,9 @@ function contains(a, obj) {
     }
     return false;
 }
+// 枝江田
 if (absFile.indexOf(encodeURIComponent(cnames[0])) != -1)
 {
-    var height = docRef.height;
-    var width = docRef.width;
-    var mod = docRef.mode;
-    var originalResolution = docRef.resolution;
     var resolution = 254;
     docRef.resizeImage(width, height, resolution);     
     // Save the current preferences
@@ -43,10 +40,12 @@ if (absFile.indexOf(encodeURIComponent(cnames[0])) != -1)
     jpegOptions.embedColorProfile = true;
     jpegOptions.matte = MatteType.NONE;
     jpegOptions.formatOptions = FormatOptions.STANDARDBASELINE;
+    docRef.save();
     docRef.saveAs(new File(p + "\\jpg" + n), jpegOptions, true, Extension.LOWERCASE);
     // don’t modify the original
     docRef.close(SaveOptions.DONOTSAVECHANGES)
 }
+// noAction user no changes
 else if (contains(noAction, absFile)) 
 {
 	if (docRef.resolution !== 254)
@@ -59,7 +58,7 @@ else if (contains(noAction, absFile))
 else {
     hs_blue_11();
     init()
-    colordeep()
+    colordeep();
     docRef.save();
     docRef.close();
 }
@@ -125,19 +124,11 @@ function colordeep()
 //    if (contains(rc_paper, absFile)) {
 //	 levels(1.15);
 //    }
-
 }
 // 选取图层
 function layRef()
 {
-    try
-    {
-        var layerRef = docRef.artLayers.getByName("Background")
-    }
-    catch(err)
-    {
-        var layerRef = docRef.artLayers.getByName("背景")
-    } 
+    var layerRef = docRef.activeLayer;
     return layerRef;
 }
 // 调整色阶
@@ -151,4 +142,6 @@ function levels(v)
     outputRangeEnd = 255
     layerRef.adjustLevels(inputRangeStart, inputRangeEnd, inputRangeGamma, outputRangeStart, outputRangeEnd)
 }
-docRef = null
+
+docRef = null;
+

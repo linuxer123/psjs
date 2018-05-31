@@ -35,7 +35,7 @@ function duplicateLayer()
     }
     return docRef.activeLayer;
 }
-//Л╨одёй╫
+// ╩Л╨одёй╫
 function blendMode(layer, mode)
 {
     //BlendMode.MULTIPLY BlendMode.SCREEN;
