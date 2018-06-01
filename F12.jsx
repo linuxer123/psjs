@@ -6,7 +6,7 @@ function groupColorBalance(v)
     switch (v)
     {
 	case 503:
-	    colorBalance([0,0,0],[0,0,0],[5,0,3]); 
+	    colorBalance([0,0,0],[0,0,0],[5,0,-4]); 
 	    break;
     	default:
 	    colorBalance();
