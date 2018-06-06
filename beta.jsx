@@ -247,3 +247,27 @@ textItemRef = null
 // Restore original ruler unit setting
 app.preferences.rulerUnits = originalUnit
 kk*/
+<script>
+// swap 
+function swap(arr, i, j)
+{
+    temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+//
+var arr = [20,50,8,9,11, 100, 1,2,3,54];
+n=arr.length;
+for (i=0;i<n-1;i++) {
+    var min = i;
+    for (j=i+1;j<n;j++) {
+        if (arr[j]<arr[min]) {
+            min = j;
+        } 
+    }
+    if (min != i) {
+        swap(arr,min,i);
+    }
+}
+document.write(arr);
+</script>
