@@ -15,8 +15,8 @@ if (app.documents.length !== 0)
     p = p.replace(/\//g, "\\\\");
 
     //Adjusts the levels of the selected channels parmater
-    function init() {
-        var resolution = 254
+    function init(docRef) {
+        var resolution = 254;
         docRef.changeMode(ChangeMode.RGB);
         docRef.resizeImage(width, height, resolution) 
     }
@@ -52,16 +52,18 @@ if (app.documents.length !== 0)
     // noAction user no changes
     else if (contains(noAction, absFile)) 
     {
-        if (docRef.resolution !== 254)
-        {	
-            init();
-                docRef.save();
+        while(app.documents.length !== 0) {
+            if (app.activeDocument.resolution !== 254)
+            {	
+                init(app.activeDocument);
+                app.activeDocument.save();
+            }
+                app.activeDocument.close();
         }
-        docRef.close();
     }
     else {
         hs_blue_11();
-        init()
+        init(docRef)
         colordeep();
         docRef.save();
         docRef.close();
