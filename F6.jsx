@@ -30,7 +30,8 @@ function duplicateLayer()
     }
     catch(e)
     {
-        docRef.activeLayer.copy();
+        docRef.selection.selectAll();
+        docRef.selection.copy();
        	docRef.paste();
     }
     return docRef.activeLayer;

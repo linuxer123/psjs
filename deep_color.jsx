@@ -1,7 +1,7 @@
 // Remember current unit settings and then set units to
 // the value expected by this script
 var cnames = new Array('枝田'); 
-var noAction = new Array('胡巴','例外'); 
+var noAction = new Array('胡巴dkdkkd','例外dkdkdkkdd'); 
 if (app.documents.length !== 0)
 {
     var docRef = activeDocument;
@@ -54,7 +54,7 @@ if (app.documents.length !== 0)
     {
         while(app.documents.length !== 0) {
             if (app.activeDocument.resolution !== 254)
-            {   
+            {	
                 init(app.activeDocument);
                 app.activeDocument.save();
             }
@@ -111,7 +111,7 @@ if (app.documents.length !== 0)
         var name = new Array('fm', '封面', '封底', 'fd', 'FM', 'FD','Fd','Fm','fD','fM');
         var single = new Array('冰雕', '琉璃','玻璃','颜色深点','洗深', '深点','颜色出深','颜色加深','深一点', '芬兰', '不调亮了','稍深');
         var rc_paper = new Array('〓〓〓RC', '◆◆◆◆RC', '★★★海报', '◆◆◆◆艺术纸');
-        var yl_name = new Array('沙市米兰贝贝', '米兰贝贝');    
+        var yl_name = new Array('沙市米兰贝贝', '米兰贝贝');	
         n = encodeURIComponent(n)
         if (contains(color_deep, absFile)) {
             if (contains(name, n)) {
@@ -122,13 +122,13 @@ if (app.documents.length !== 0)
             if (contains(single, n)) {
             if (contains(yl_name, absFile)) {
              levels(0.78);
-            }       
+            }		
         else
             levels(0.85);
             }   
         }
     //    if (contains(rc_paper, absFile)) {
-    //   levels(1.15);
+    //	 levels(1.15);
     //    }
     }
     // 选取图层
@@ -151,4 +151,3 @@ if (app.documents.length !== 0)
 
     docRef = null;
 }
-

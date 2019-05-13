@@ -1,3 +1,27 @@
+//app.activeDocument.flatten();
+//var layerRef = duplicateLayer();
+var layerSetRef = app.activeDocument.layerSets.add();
+//alert(app.activeDocument.artLayers[1]);
+//duplicateLayer();
+// 选取图层
+function layRef()
+{
+    // backgroundLayer
+    // activeLayer
+    // 当前选择的文档
+    var docRef = app.activeDocument;
+    var layerRef = docRef.activeLayer;
+    return layerRef;
+}
+// 复制图层
+function duplicateLayer()
+{
+    var docRef = app.activeDocument;
+    docRef.activeLayer.copy();
+    docRef.paste();
+    return docRef.activeLayer;
+}
+/*
 var layerRef = layRef();
 groupMode(BlendMode.MULTIPLY);
 // 叠加深
@@ -30,8 +54,7 @@ function duplicateLayer()
     }
     catch(e)
     {
-        docRef.selection.selectAll();
-        docRef.selection.copy();
+        docRef.activeLayer.copy();
        	docRef.paste();
     }
     return docRef.activeLayer;
@@ -89,3 +112,4 @@ function hs_r10()
     desc2.putList( idAdjs, list1 );
 executeAction( idHStr, desc2, DialogModes.NO );
 }
+*/
